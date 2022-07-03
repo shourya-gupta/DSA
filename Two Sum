@@ -1,0 +1,71 @@
+LINK TO PROBLEM: https://leetcode.com/problems/two-sum/
+
+SOLUTION:
+
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        
+//         // BRUTE FORCE SOLUTION - O(N^2) solution
+        
+//         int[] res = new int[2];
+        
+//         for(int i=0;i<nums.length;i++)
+//         {
+//             for(int j=i+1;j<nums.length;j++)
+//             {
+//                 if(nums[i] + nums[j] == target)
+//                 {
+//                     res[0] = i;
+//                     res[1] = j;
+//                 }
+//             }
+//         }
+        
+//         return res;
+        
+        // OPTIMISED APPROACH - Time complexity: O(n), Space Complexity: O(n)
+        
+        // Now our main objective was to find the sum of 2 numbers - we can also view this question as finding a number n, and target - n in the array
+        
+        // Now as we know we have to search target-n in our array, by making use of hash table the time complexity of searching things will be reduced 
+        
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int[] res = new int[2];
+        
+        for(int i=0;i<nums.length;i++)
+        {
+            // now in the hash map we will store the element, index of it
+            
+            // we will search if the target - n is there in hash table or not, if it is we will return the indexes, otherwise put it in the map 
+            
+            // key - element, value - index
+            
+            if(map.containsKey(target-nums[i]) == true)
+            {
+                // if the value is present, then ->
+                res[0] = i; // current index which has target-nums[i] 
+                res[1] = map.get(target-nums[i]);   // get the key of the given value
+            }
+            
+            map.put(nums[i], i);
+        }
+        
+        return res;
+    }
+}
+
+// Why did we choose key - as element and index  as value?
+// what if the elements were repeated in the array?
+
+//HashMap stores key, value pairs and it does not allow duplicate keys. If the key is duplicate then the old key is replaced with the new value.
+
+// So, for a input as - [1,1,2,3]
+//                        5
+
+// Output will be - 
+// {1=0}
+// {1=1}
+// {1=1, 2=2}
+// {1=1, 2=2, 3=3}
+
+
