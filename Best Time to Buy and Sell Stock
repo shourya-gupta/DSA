@@ -1,0 +1,54 @@
+LINK TO THE PROBLEM: https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+
+SOLUTION:
+
+class Solution {
+    public int maxProfit(int[] prices) {
+        
+//         // BRUTE FORCE APPROACH - O(N^2)
+        
+//         // for a number, we have to find the greatest number ahead of it, and store it in a list
+        
+//         int profit = 0;
+        
+//         for(int i=0;i<prices.length;i++)
+//         {
+//             int max = 0;
+//             for(int j=i+1;j<prices.length;j++)
+//             {
+//                 max = Math.max(max, prices[j]);
+//             }
+//             // System.out.println("max " + max);
+//             profit = Math.max(max - prices[i], profit);
+//             // System.out.println("profit " + profit);
+//         }
+        
+//         return profit;
+        
+        // OPTIMISED APPROACH - O(N)
+        
+        // Traverse in the array - and keep track of the lowest element, and the profit
+        // So, intially we wil keep lowest element as arr[0], and the profit as 0 
+        // Whenever we get a element lesser than min we updat eit, and at each step we calculate the profit and see if it is greater than the previous one. If so, we update it
+        
+        int min = prices[0];
+        int profit = 0;
+        
+        for(int i=0;i<prices.length;i++)
+        {
+            if(min > prices[i])
+            {
+                // update min
+                min = prices[i];
+            }
+            
+            // calculate profit - only if it less than what it was
+            if(profit < prices[i] - min)
+            {
+                profit = prices[i] - min;
+            }   
+        }
+        
+        return profit;
+    }
+}
